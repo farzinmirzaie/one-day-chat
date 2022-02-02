@@ -1,14 +1,14 @@
+import Avatar from './Avatar';
 import ChatCard from './ChatCard';
-import Header from './Header';
+import ChatHeader from './ChatHeader';
 import Divider from './Divider';
+import Header from './Header';
+import IconButton from './IconButton';
+import PlatformKeyboardAvoidingView from './PlatformKeyboardAvoidingView';
 import Screen from './Screen';
 import SearchBar from './SearchBar';
-import PlatformKeyboardAvoidingView from './PlatformKeyboardAvoidingView';
-import ChatHeader from './ChatHeader';
-import Avatar from './Avatar';
 import TextPrimary from './TextPrimary';
 import TextSecondary from './TextSecondary';
-import IconButton from './IconButton';
 
 export {
   ChatCard,

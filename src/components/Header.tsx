@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import {Avatar, IconButton} from '.';
+import { Avatar, IconButton } from '.';
 
 const Container = styled.SafeAreaView`
-  background-color: ${({theme}) => theme.colors.primary};
-  border-color: ${({theme}) => theme.colors.border};
+  background-color: ${({ theme }) => theme.colors.primary};
+  border-color: ${({ theme }) => theme.colors.border};
   border-bottom-width: 1px;
   flex-direction: row;
   justify-content: space-between;
@@ -16,7 +16,7 @@ interface Props {
   name?: string;
 }
 
-const Header = ({avatar, name}: Props) => {
+const Header = ({ avatar, name }: Props) => {
   return (
     <Container>
       <IconButton icon={'chat'} />

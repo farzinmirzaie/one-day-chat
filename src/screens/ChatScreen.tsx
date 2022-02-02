@@ -5,12 +5,13 @@ import {
   Screen,
   TextPrimary,
 } from '../components';
+import { NavigationProps } from './Navigation';
 
-const ChatScreen = () => {
+const ChatScreen = ({ route }: NavigationProps<'Chat'>) => {
   return (
     <Screen>
       <ChatHeader
-        name="Craig Ortega"
+        name={route.params.id}
         status="I love buying new things but I hate spending money."
       />
       <PlatformKeyboardAvoidingView>
