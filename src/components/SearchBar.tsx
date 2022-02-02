@@ -1,9 +1,9 @@
 import React from 'react';
-import styled, {useTheme} from 'styled-components/native';
-import {IconButton} from '.';
+import styled, { useTheme } from 'styled-components/native';
+import { IconButton } from '.';
 
 const Container = styled.View`
-  background-color: ${({theme}) => theme.colors.secondary};
+  background-color: ${({ theme }) => theme.colors.secondary};
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -14,7 +14,7 @@ const Input = styled.TextInput`
   padding: 20px 0;
   font-size: 14px;
   text-align: center;
-  color: ${({theme}) => theme.colors.textSecondary};
+  color: ${({ theme }) => theme.colors.textSecondary};
 `;
 
 const SearchBar = () => {

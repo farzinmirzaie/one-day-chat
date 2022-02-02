@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList} from 'react-native';
+import { FlatList } from 'react-native';
 import {
   ChatCard,
   Header,
@@ -8,7 +8,7 @@ import {
   SearchBar,
 } from '../components';
 
-const ChatListScreen = ({navigation}) => {
+const ChatListScreen = ({ navigation }) => {
   const mock = [
     {
       name: 'Diana Fisher',
@@ -34,7 +34,7 @@ const ChatListScreen = ({navigation}) => {
       <PlatformKeyboardAvoidingView>
         <FlatList
           data={mock}
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <ChatCard {...item} onPress={() => navigation.navigate('Chat')} />
           )}
         />

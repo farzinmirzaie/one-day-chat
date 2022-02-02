@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import {Avatar, TextPrimary, TextSecondary} from '.';
+import { Avatar, TextPrimary, TextSecondary } from '.';
 
 const Card = styled.TouchableOpacity`
-  background-color: ${({theme}) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.primary};
   flex-direction: row;
   align-items: center;
 `;
@@ -11,7 +11,7 @@ const Card = styled.TouchableOpacity`
 const ContentContainer = styled.View`
   flex: 1;
   flex-direction: row;
-  border-color: ${({theme}) => theme.colors.border};
+  border-color: ${({ theme }) => theme.colors.border};
   border-bottom-width: 1px;
   padding-top: 15px;
   padding-right: 15px;
@@ -32,7 +32,7 @@ interface Props {
   onPress?: () => void;
 }
 
-const ChatCard = ({avatar, name, message, time, onPress}: Props) => {
+const ChatCard = ({ avatar, name, message, time, onPress }: Props) => {
   const date: Date = new Date(time);
 
   return (

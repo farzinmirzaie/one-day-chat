@@ -1,5 +1,5 @@
 import React from 'react';
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 import styled from 'styled-components/native';
 
 const KeyboardAvoidingView = styled.KeyboardAvoidingView`

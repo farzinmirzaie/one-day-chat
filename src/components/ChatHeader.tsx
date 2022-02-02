@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import {Avatar, IconButton, TextPrimary, TextSecondary} from '.';
+import { Avatar, IconButton, TextPrimary, TextSecondary } from '.';
 
 const Container = styled.SafeAreaView`
-  background-color: ${({theme}) => theme.colors.primary};
-  border-color: ${({theme}) => theme.colors.border};
+  background-color: ${({ theme }) => theme.colors.primary};
+  border-color: ${({ theme }) => theme.colors.border};
   border-bottom-width: 1px;
   flex-direction: row;
   justify-content: space-between;
@@ -22,7 +22,7 @@ interface Props {
   status: string;
 }
 
-const ChatHeader = ({avatar, name, status}: Props) => {
+const ChatHeader = ({ avatar, name, status }: Props) => {
   return (
     <Container>
       <Avatar uri={avatar} id={name} size={60} />

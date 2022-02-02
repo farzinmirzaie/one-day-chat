@@ -1,10 +1,10 @@
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import {StatusBar, useColorScheme} from 'react-native';
-import {ThemeProvider} from 'styled-components/native';
-import {ChatListScreen, ChatScreen} from './src/screens';
-import {darkTheme, lightTheme} from './themes';
+import { StatusBar, useColorScheme } from 'react-native';
+import { ThemeProvider } from 'styled-components/native';
+import { ChatListScreen, ChatScreen } from './src/screens';
+import { darkTheme, lightTheme } from './themes';
 
 const Stack = createNativeStackNavigator();
 
