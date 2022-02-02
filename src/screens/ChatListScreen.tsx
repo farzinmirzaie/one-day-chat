@@ -7,8 +7,9 @@ import {
   Screen,
   SearchBar,
 } from '../components';
+import { NavigationProps } from './Navigation';
 
-const ChatListScreen = ({ navigation }) => {
+const ChatListScreen = ({ navigation }: NavigationProps<'ChatList'>) => {
   const mock = [
     {
       name: 'Diana Fisher',
@@ -35,7 +36,10 @@ const ChatListScreen = ({ navigation }) => {
         <FlatList
           data={mock}
           renderItem={({ item }) => (
-            <ChatCard {...item} onPress={() => navigation.navigate('Chat')} />
+            <ChatCard
+              {...item}
+              onPress={() => navigation.navigate('Chat', { id: item.name })}
+            />
           )}
         />
       </PlatformKeyboardAvoidingView>
