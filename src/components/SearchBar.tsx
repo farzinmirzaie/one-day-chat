@@ -1,5 +1,6 @@
 import React from 'react';
-import styled from 'styled-components/native';
+import styled, {useTheme} from 'styled-components/native';
+import {IconButton} from '.';
 
 const Container = styled.View`
   background-color: ${({theme}) => theme.colors.secondary};
@@ -13,22 +14,22 @@ const Input = styled.TextInput`
   padding: 20px;
   font-size: 14px;
   text-align: center;
-`;
-
-const Icon = styled.Image`
-  tint-color: ${({theme}) => theme.colors.textSecondary};
-  height: 20px;
-  width: 20px;
+  color: ${({theme}) => theme.colors.textSecondary};
 `;
 
 const SearchBar = () => {
+  const theme = useTheme();
+
   return (
     <Container>
-      <Icon
-        source={{uri: 'https://cdn-icons-png.flaticon.com/512/61/61088.png'}}
-        resizeMode="contain"
+      <IconButton
+        secondary
+        icon={'https://cdn-icons-png.flaticon.com/512/61/61088.png'}
       />
-      <Input placeholder="Search OR Start New Chat" />
+      <Input
+        placeholder="Search OR Start New Chat"
+        placeholderTextColor={theme.colors.textSecondary}
+      />
     </Container>
   );
 };

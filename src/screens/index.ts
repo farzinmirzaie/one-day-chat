@@ -1,3 +1,4 @@
 import ChatListScreen from './ChatListScreen';
+import ChatScreen from './ChatScreen';
 
-export {ChatListScreen};
+export {ChatListScreen, ChatScreen};

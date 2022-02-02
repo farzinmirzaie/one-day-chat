@@ -1,5 +1,5 @@
 import React from 'react';
-import {useColorScheme} from 'react-native';
+import {StatusBar, useColorScheme} from 'react-native';
 import {ThemeProvider} from 'styled-components/native';
 import {ChatListScreen} from './src/screens';
 import {darkTheme, lightTheme} from './themes';
@@ -9,6 +9,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <ChatListScreen />
     </ThemeProvider>
   );

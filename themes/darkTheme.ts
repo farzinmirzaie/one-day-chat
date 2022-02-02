@@ -1,13 +1,11 @@
 import {DefaultTheme} from 'styled-components';
 
 const darkTheme: DefaultTheme = {
-  borderRadius: '5px',
-
   colors: {
-    primary: '#ffffff',
-    secondary: '#ededed',
-    border: '#e8ebec',
-    textPrimary: '#000000',
+    primary: '#121212',
+    secondary: '#191919',
+    border: '#191919',
+    textPrimary: '#ffffff',
     textSecondary: '#9d9d9d',
   },
 };
