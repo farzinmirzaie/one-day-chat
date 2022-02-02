@@ -1,6 +1,7 @@
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
+import {ICONS} from '../assets';
 
 const Icon = styled.Image<Props>`
   tint-color: ${({theme, secondary}) =>
@@ -11,7 +12,7 @@ const Icon = styled.Image<Props>`
 `;
 
 interface Props {
-  icon?: string;
+  icon?: keyof typeof ICONS;
   size?: number;
   secondary?: boolean;
   onPress?: () => void;
@@ -21,7 +22,7 @@ const IconButton = ({icon, size, secondary, onPress}: Props) => {
   return (
     <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
       <Icon
-        source={{uri: icon}}
+        source={ICONS[icon || 'dots']}
         resizeMode="contain"
         secondary={secondary}
         size={size}

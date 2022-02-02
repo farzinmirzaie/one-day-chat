@@ -10,8 +10,8 @@ const Container = styled.View`
 `;
 
 const Input = styled.TextInput`
-  width: 60%;
-  padding: 20px;
+  width: 200px;
+  padding: 20px 0;
   font-size: 14px;
   text-align: center;
   color: ${({theme}) => theme.colors.textSecondary};
@@ -22,10 +22,7 @@ const SearchBar = () => {
 
   return (
     <Container>
-      <IconButton
-        secondary
-        icon={'https://cdn-icons-png.flaticon.com/512/61/61088.png'}
-      />
+      <IconButton secondary icon={'search'} />
       <Input
         placeholder="Search OR Start New Chat"
         placeholderTextColor={theme.colors.textSecondary}

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import {Avatar, IconButton} from '.';
+import {Avatar, IconButton, TextPrimary, TextSecondary} from '.';
 
 const Container = styled.SafeAreaView`
   background-color: ${({theme}) => theme.colors.primary};
@@ -11,19 +11,28 @@ const Container = styled.SafeAreaView`
   align-items: center;
 `;
 
+const NameContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+`;
+
 interface Props {
   avatar?: string;
-  name?: string;
+  name: string;
+  status: string;
 }
 
-const Header = ({avatar, name}: Props) => {
+const ChatHeader = ({avatar, name, status}: Props) => {
   return (
     <Container>
-      <IconButton icon={'chat'} />
-      <Avatar uri={avatar} id={name} />
+      <Avatar uri={avatar} id={name} size={60} />
+      <NameContainer>
+        <TextPrimary>{name}</TextPrimary>
+        <TextSecondary numberOfLines={1}>{status}</TextSecondary>
+      </NameContainer>
       <IconButton icon={'dots'} />
     </Container>
   );
 };
 
-export default Header;
+export default ChatHeader;
