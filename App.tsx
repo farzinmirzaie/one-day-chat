@@ -1,6 +1,7 @@
 import React from 'react';
-import {Text, useColorScheme} from 'react-native';
+import {useColorScheme} from 'react-native';
 import {ThemeProvider} from 'styled-components/native';
+import {ChatListScreen} from './src/screens';
 import {darkTheme, lightTheme} from './themes';
 
 const App = () => {
@@ -8,7 +9,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-      <Text>Hello World!</Text>
+      <ChatListScreen />
     </ThemeProvider>
   );
 };
