@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FlatList } from 'react-native';
 import {
   ChatCard,
@@ -7,38 +7,26 @@ import {
   Screen,
   SearchBar,
 } from '../components';
+import { useStore } from '../hooks';
 import { NavigationProps } from './Navigation';
 
 const ChatListScreen = ({ navigation }: NavigationProps<'ChatList'>) => {
-  const mock = [
-    {
-      name: 'Diana Fisher',
-      message: 'Hey! Whats your plan for weekend',
-      time: Date.now(),
-    },
-    {
-      name: 'Helen Lawrence',
-      message: 'I just spoke to him!',
-      time: Date.now(),
-    },
-    {
-      name: 'Eric Lopez',
-      message: 'I booked two tickets',
-      time: Date.now(),
-    },
-  ];
+  const { channels, userId } = useStore();
+  const [query, setQuery] = useState('');
 
   return (
     <Screen>
-      <Header />
-      <SearchBar />
+      <Header name={userId} />
+      <SearchBar onChange={setQuery} />
       <PlatformKeyboardAvoidingView>
         <FlatList
-          data={mock}
+          data={channels.filter(channel => channel.name.includes(query))}
           renderItem={({ item }) => (
             <ChatCard
-              {...item}
-              onPress={() => navigation.navigate('Chat', { id: item.name })}
+              name={item.name}
+              message={item.description}
+              avatar={item.avatar}
+              onPress={() => navigation.navigate('Chat', { channel: item })}
             />
           )}
         />

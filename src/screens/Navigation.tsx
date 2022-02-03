@@ -5,10 +5,11 @@ import {
 } from '@react-navigation/native-stack';
 import React from 'react';
 import { ChatListScreen, ChatScreen } from '.';
+import { IChannel } from '../../types';
 
 type RootStackParamList = {
   ChatList: undefined;
-  Chat: { id: string };
+  Chat: { channel: IChannel };
 };
 
 export type NavigationProps<T extends keyof RootStackParamList> =

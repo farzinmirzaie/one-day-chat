@@ -28,13 +28,11 @@ interface Props {
   avatar?: string;
   name: string;
   message: string;
-  time: number;
+  time?: number;
   onPress?: () => void;
 }
 
 const ChatCard = ({ avatar, name, message, time, onPress }: Props) => {
-  const date: Date = new Date(time);
-
   return (
     <Card activeOpacity={0.7} onPress={onPress}>
       <Avatar uri={avatar} id={name} />
@@ -43,9 +41,11 @@ const ChatCard = ({ avatar, name, message, time, onPress }: Props) => {
           <TextPrimary>{name}</TextPrimary>
           <TextSecondary numberOfLines={1}>{message}</TextSecondary>
         </MessageContainer>
-        <TextSecondary size={10} bold>
-          {`${date.getHours()}:${date.getMinutes()}`}
-        </TextSecondary>
+        {time && (
+          <TextSecondary size={10} bold>
+            {`${new Date(time).getHours()}:${new Date(time).getMinutes()}`}
+          </TextSecondary>
+        )}
       </ContentContainer>
     </Card>
   );
