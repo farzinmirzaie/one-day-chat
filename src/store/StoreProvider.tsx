@@ -14,6 +14,8 @@ const StoreProvider = ({ children }: { children?: React.ReactNode }) => {
       payload: { channelId, input },
     });
 
+  const getDraft = (channelId: TChannel) => state.drafts[channelId];
+
   const clearDraft = (channelId: TChannel) =>
     dispatch({
       type: 'CLEAR_DRAFT',
@@ -21,7 +23,7 @@ const StoreProvider = ({ children }: { children?: React.ReactNode }) => {
     });
 
   return (
-    <StoreContext.Provider value={{ ...state, setDraft, clearDraft }}>
+    <StoreContext.Provider value={{ ...state, setDraft, getDraft, clearDraft }}>
       {children}
     </StoreContext.Provider>
   );

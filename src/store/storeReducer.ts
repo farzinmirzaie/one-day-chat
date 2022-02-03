@@ -21,12 +21,18 @@ const storeReducer = (state: IStoreState, action: TAction): IStoreState => {
     case 'SET_DRAFT':
       return {
         ...state,
-        draft: [...state.draft, action.payload],
+        drafts: {
+          ...state.drafts,
+          [action.payload.channelId]: action.payload.input,
+        },
       };
     case 'CLEAR_DRAFT':
       return {
         ...state,
-        draft: state.draft.filter(draft => draft.channelId !== action.payload),
+        drafts: {
+          ...state.drafts,
+          [action.payload]: '',
+        },
       };
     default:
       return state;

@@ -1,15 +1,11 @@
 import { IChannel, TChannel, TUser } from '../../types';
 
-interface IDraft {
-  channelId: TChannel;
-  input: string;
-}
-
 export interface IStoreState {
   userId: TUser;
   channels: IChannel[];
-  draft: IDraft[];
+  drafts: { [key in TChannel]: string };
   setDraft: (channelId: TChannel, input: string) => void;
+  getDraft: (channelId: TChannel) => string;
   clearDraft: (channelId: TChannel) => void;
 }
 
@@ -32,7 +28,12 @@ export const storeInitialState: IStoreState = {
       description: 'LGTM channel',
     },
   ],
-  draft: [],
+  drafts: {
+    '1': '',
+    '2': '',
+    '3': '',
+  },
   setDraft: () => {},
+  getDraft: () => '',
   clearDraft: () => {},
 };
