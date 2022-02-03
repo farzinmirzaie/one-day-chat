@@ -1,6 +1,7 @@
 import Avatar from './Avatar';
 import Button from './Button';
 import Center from './Center';
+import ChatBubble from './ChatBubble';
 import ChatCard from './ChatCard';
 import ChatHeader from './ChatHeader';
 import ChatInput from './ChatInput';
@@ -32,4 +33,5 @@ export {
   EmptyState,
   Spacer,
   Button,
+  ChatBubble,
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components/native';
+import styled, { useTheme } from 'styled-components/native';
 import { TextSecondary } from '.';
 
 const ButtonContainer = styled.TouchableOpacity`
@@ -14,9 +14,11 @@ interface Props {
 }
 
 const Button = ({ caption, onPress }: Props) => {
+  const theme = useTheme();
+
   return (
     <ButtonContainer activeOpacity={0.7} onPress={onPress}>
-      <TextSecondary bold color={'white'}>
+      <TextSecondary bold color={theme.colors.primary}>
         {caption}
       </TextSecondary>
     </ButtonContainer>

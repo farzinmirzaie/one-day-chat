@@ -33,7 +33,7 @@ const ChatInput = ({ channelId }: Props) => {
     send({
       variables: {
         channelId: channelId,
-        text: message,
+        text: message.trim(),
         userId: store.userId,
       },
     });

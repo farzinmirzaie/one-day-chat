@@ -1,12 +1,12 @@
 import React from 'react';
 import { FlatList } from 'react-native';
 import {
+  ChatBubble,
   ChatHeader,
   ChatInput,
   EmptyState,
   PlatformKeyboardAvoidingView,
   Screen,
-  TextPrimary,
 } from '../components';
 import { useFetchLatestMessages } from '../hooks';
 import { NavigationProps } from './Navigation';
@@ -40,15 +40,15 @@ const ChatScreen = ({
               />
             )}
 
-          {data?.fetchLatestMessages &&
-            data?.fetchLatestMessages.length !== 0 && (
-              <FlatList
-                data={data.fetchLatestMessages}
-                renderItem={({ item }) => (
-                  <TextPrimary>{item.text}</TextPrimary>
-                )}
-              />
-            )}
+          {data?.fetchLatestMessages && data?.fetchLatestMessages.length !== 0 && (
+            <FlatList
+              data={data.fetchLatestMessages}
+              // eslint-disable-next-line react-native/no-inline-styles
+              contentContainerStyle={{ paddingTop: 15 }}
+              inverted
+              renderItem={({ item }) => <ChatBubble message={item} />}
+            />
+          )}
         </Screen>
         <ChatInput channelId={channel.id} />
       </PlatformKeyboardAvoidingView>
