@@ -1,5 +1,10 @@
-import { TChannel } from '../../types';
+import { TChannel, TUser } from '../../types';
 import { IStoreState } from './storeInitialState';
+
+interface IActionChangeUser {
+  type: 'CHANGE_USER';
+  payload: TUser;
+}
 
 interface IActionSetDraft {
   type: 'SET_DRAFT';
@@ -14,10 +19,15 @@ interface IActionClearDraft {
   payload: TChannel;
 }
 
-type TAction = IActionSetDraft | IActionClearDraft;
+type TAction = IActionChangeUser | IActionSetDraft | IActionClearDraft;
 
 const storeReducer = (state: IStoreState, action: TAction): IStoreState => {
   switch (action.type) {
+    case 'CHANGE_USER':
+      return {
+        ...state,
+        userId: action.payload,
+      };
     case 'SET_DRAFT':
       return {
         ...state,

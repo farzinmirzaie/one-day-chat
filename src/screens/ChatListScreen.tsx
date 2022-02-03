@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FlatList } from 'react-native';
 import {
   ChatCard,
+  EmptyState,
   Header,
   PlatformKeyboardAvoidingView,
   Screen,
@@ -11,12 +12,12 @@ import { useStore } from '../hooks';
 import { NavigationProps } from './Navigation';
 
 const ChatListScreen = ({ navigation }: NavigationProps<'ChatList'>) => {
-  const { channels, userId } = useStore();
+  const { channels } = useStore();
   const [query, setQuery] = useState('');
 
   return (
     <Screen>
-      <Header name={userId} />
+      <Header />
       <SearchBar onChange={setQuery} />
       <PlatformKeyboardAvoidingView>
         <FlatList
@@ -27,6 +28,14 @@ const ChatListScreen = ({ navigation }: NavigationProps<'ChatList'>) => {
               message={item.description}
               avatar={item.avatar}
               onPress={() => navigation.navigate('Chat', { channel: item })}
+            />
+          )}
+          // eslint-disable-next-line react-native/no-inline-styles
+          contentContainerStyle={{ flexGrow: 1 }}
+          ListEmptyComponent={() => (
+            <EmptyState
+              title="Not found"
+              message="Try to choose a channel from the list."
             />
           )}
         />

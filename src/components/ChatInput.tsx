@@ -24,7 +24,7 @@ interface Props {
 }
 
 const ChatInput = ({ channelId }: Props) => {
-  const theme = useTheme();
+  const { colors } = useTheme();
   const store = useStore();
   const [message, setMessage] = useState(store.getDraft(channelId));
   const [send, { loading, error, data }] = usePostMessage();
@@ -52,7 +52,7 @@ const ChatInput = ({ channelId }: Props) => {
         value={message}
         onChangeText={onChange}
         placeholder="Say something..."
-        placeholderTextColor={theme.colors.textSecondary}
+        placeholderTextColor={colors.textSecondary}
         onSubmitEditing={submit}
       />
       {loading ? (

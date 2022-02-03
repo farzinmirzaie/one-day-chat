@@ -21,7 +21,7 @@ interface Props {
 }
 
 const SearchBar = ({ onChange }: Props) => {
-  const theme = useTheme();
+  const { colors } = useTheme();
 
   return (
     <Container>
@@ -29,7 +29,7 @@ const SearchBar = ({ onChange }: Props) => {
       <Input
         onChangeText={onChange}
         placeholder="Search for channels"
-        placeholderTextColor={theme.colors.textSecondary}
+        placeholderTextColor={colors.textSecondary}
       />
     </Container>
   );

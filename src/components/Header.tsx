@@ -1,6 +1,8 @@
 import React from 'react';
+import { TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components/native';
-import { Avatar, IconButton } from '.';
+import { Avatar, IconButton, TextPrimary, TextSecondary } from '.';
+import { useStore } from '../hooks';
 
 const Container = styled.SafeAreaView`
   background-color: ${({ theme }) => theme.colors.primary};
@@ -11,18 +13,32 @@ const Container = styled.SafeAreaView`
   align-items: center;
 `;
 
-interface Props {
-  avatar?: string;
-  name?: string;
-}
+const UserContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
 
-const Header = ({ avatar, name }: Props) => {
+const Header = () => {
+  const { userId, changeUser } = useStore();
+
+  const onUserChange = () =>
+    changeUser(
+      userId === 'Joyse' ? 'Russell' : userId === 'Russell' ? 'Sam' : 'Joyse',
+    );
+
   return (
-    <Container>
-      <IconButton icon={'chat'} />
-      <Avatar uri={avatar} id={name} />
-      <IconButton icon={'dots'} />
-    </Container>
+    <TouchableOpacity activeOpacity={0.7} onPress={onUserChange}>
+      <Container>
+        <UserContainer>
+          <Avatar id={userId} />
+          <View>
+            <TextPrimary>Hello, {userId}!</TextPrimary>
+            <TextSecondary>Tap to switch between accounts</TextSecondary>
+          </View>
+        </UserContainer>
+        <IconButton icon={'arrowDown'} onPress={onUserChange} />
+      </Container>
+    </TouchableOpacity>
   );
 };
 

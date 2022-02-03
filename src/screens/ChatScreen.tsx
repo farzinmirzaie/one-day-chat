@@ -32,21 +32,19 @@ const ChatScreen = ({
             />
           )}
 
-          {data?.fetchLatestMessages &&
-            data?.fetchLatestMessages.length === 0 && (
-              <EmptyState
-                title={'No message here'}
-                message={'Try to send a message and start a conversation.'}
-              />
-            )}
-
-          {data?.fetchLatestMessages && data?.fetchLatestMessages.length !== 0 && (
+          {data?.fetchLatestMessages && (
             <FlatList
               data={data.fetchLatestMessages}
-              // eslint-disable-next-line react-native/no-inline-styles
-              contentContainerStyle={{ paddingTop: 15 }}
-              inverted
+              inverted={data?.fetchLatestMessages.length !== 0}
               renderItem={({ item }) => <ChatBubble message={item} />}
+              // eslint-disable-next-line react-native/no-inline-styles
+              contentContainerStyle={{ flexGrow: 1, paddingTop: 15 }}
+              ListEmptyComponent={() => (
+                <EmptyState
+                  title={'No message here'}
+                  message={'Try to send a message and start a conversation.'}
+                />
+              )}
             />
           )}
         </Screen>

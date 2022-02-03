@@ -4,7 +4,8 @@ const lightTheme: DefaultTheme = {
   colors: {
     primary: '#ffffff',
     secondary: '#ededed',
-    accent: '#5b5cc4',
+    accentLight: '#567bd5',
+    accentDark: '#6632b5',
     border: '#e8ebec',
     textPrimary: '#000000',
     textSecondary: '#9d9d9d',

@@ -1,10 +1,12 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 import styled, { useTheme } from 'styled-components/native';
 import { TextSecondary } from '.';
 
-const ButtonContainer = styled.TouchableOpacity`
-  background-color: ${({ theme }) => theme.colors.accent};
-  padding: 10px 20px;
+const ButtonContainer = styled(LinearGradient)`
+  background-color: ${({ theme }) => theme.colors.accentLight};
+  padding: 15px 20px;
   border-radius: 10px;
 `;
 
@@ -14,14 +16,19 @@ interface Props {
 }
 
 const Button = ({ caption, onPress }: Props) => {
-  const theme = useTheme();
+  const { colors } = useTheme();
 
   return (
-    <ButtonContainer activeOpacity={0.7} onPress={onPress}>
-      <TextSecondary bold color={theme.colors.primary}>
-        {caption}
-      </TextSecondary>
-    </ButtonContainer>
+    <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
+      <ButtonContainer
+        start={{ x: 0, y: 1 }}
+        end={{ x: 1, y: 0 }}
+        colors={[colors.accentDark, colors.accentLight]}>
+        <TextSecondary bold color={colors.primary}>
+          {caption}
+        </TextSecondary>
+      </ButtonContainer>
+    </TouchableOpacity>
   );
 };
 

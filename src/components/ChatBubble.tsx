@@ -1,4 +1,5 @@
 import React from 'react';
+import LinearGradient from 'react-native-linear-gradient';
 import styled, { useTheme } from 'styled-components/native';
 import { Avatar, Spacer, TextSecondary } from '.';
 import { IMessage } from '../../types';
@@ -14,9 +15,7 @@ const Container = styled.View<Props>`
   align-items: flex-start;
 `;
 
-const Bubble = styled.View<Props>`
-  background-color: ${({ theme, incoming }) =>
-    incoming ? theme.colors.secondary : theme.colors.accent};
+const Bubble = styled(LinearGradient)<Props>`
   border-radius: 10px;
   border-top-right-radius: ${({ incoming }) => (incoming ? 0 : 10)}px;
   border-top-left-radius: ${({ incoming }) => (incoming ? 10 : 0)}px;
@@ -31,7 +30,7 @@ const Column = styled.View<Props>`
 `;
 
 const ChatBubble = ({ message }: { message: IMessage }) => {
-  const theme = useTheme();
+  const { colors } = useTheme();
   const store = useStore();
   const date = new Date(message.datetime);
   const incoming = store.userId === message.userId;
@@ -42,9 +41,16 @@ const ChatBubble = ({ message }: { message: IMessage }) => {
         <Avatar id={message.userId} size={30} noLeftMargin noRightMargin />
       )}
       <Spacer />
-      <Bubble incoming={incoming}>
-        <TextSecondary
-          color={incoming ? theme.colors.textPrimary : theme.colors.primary}>
+      <Bubble
+        incoming={incoming}
+        start={{ x: 0, y: 1 }}
+        end={{ x: 1, y: 0 }}
+        colors={
+          incoming
+            ? [colors.secondary, colors.secondary]
+            : [colors.accentDark, colors.accentLight]
+        }>
+        <TextSecondary color={incoming ? colors.textPrimary : colors.primary}>
           {message.text}
         </TextSecondary>
       </Bubble>

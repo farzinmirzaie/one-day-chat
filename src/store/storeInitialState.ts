@@ -4,6 +4,7 @@ export interface IStoreState {
   userId: TUser;
   channels: IChannel[];
   drafts: { [key in TChannel]: string };
+  changeUser: (userId: TUser) => void;
   setDraft: (channelId: TChannel, input: string) => void;
   getDraft: (channelId: TChannel) => string;
   clearDraft: (channelId: TChannel) => void;
@@ -33,6 +34,7 @@ export const storeInitialState: IStoreState = {
     '2': '',
     '3': '',
   },
+  changeUser: () => {},
   setDraft: () => {},
   getDraft: () => '',
   clearDraft: () => {},
