@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { IMessage } from '../../types';
+import { IMessage, TChannel } from '../../types';
 import { FETCH_MORE_MESSAGES } from '../graphql';
 
 interface IFetchMoreMessagesData {
@@ -7,13 +7,13 @@ interface IFetchMoreMessagesData {
 }
 
 interface IFetchMoreMessagesVars {
-  channelId: string;
+  channelId: TChannel;
   messageId: string;
   old: boolean;
 }
 
 export function useFetchMoreMessages(
-  channelId: string,
+  channelId: TChannel,
   messageId: string,
   old: boolean,
 ) {

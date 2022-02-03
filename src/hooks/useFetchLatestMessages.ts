@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { IMessage } from '../../types';
+import { IMessage, TChannel } from '../../types';
 import { FETCH_LATEST_MESSAGES } from '../graphql';
 
 interface IFetchLatestMessagesData {
@@ -7,10 +7,10 @@ interface IFetchLatestMessagesData {
 }
 
 interface IFetchLatestMessagesVars {
-  channelId: string;
+  channelId: TChannel;
 }
 
-export function useFetchLatestMessages(channelId: string) {
+export function useFetchLatestMessages(channelId: TChannel) {
   return useQuery<IFetchLatestMessagesData, IFetchLatestMessagesVars>(
     FETCH_LATEST_MESSAGES,
     { variables: { channelId: channelId } },

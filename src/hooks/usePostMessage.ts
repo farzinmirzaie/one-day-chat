@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { IMessage } from '../../types';
+import { IMessage, TChannel, TUser } from '../../types';
 import { POST_MESSAGE } from '../graphql';
 
 interface IPostMessageData {
@@ -7,9 +7,9 @@ interface IPostMessageData {
 }
 
 interface IPostMessageVars {
-  channelId: string;
+  channelId: TChannel;
   text: string;
-  userId: string;
+  userId: TUser;
 }
 
 export function usePostMessage() {
