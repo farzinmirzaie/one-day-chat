@@ -19,6 +19,10 @@ export function useFetchMoreMessages(
 ) {
   return useQuery<IFetchMoreMessagesData, IFetchMoreMessagesVars>(
     FETCH_MORE_MESSAGES,
-    { variables: { channelId: channelId, messageId: messageId, old: old } },
+    {
+      variables: { channelId: channelId, messageId: messageId, old: old },
+      fetchPolicy: 'network-only',
+      notifyOnNetworkStatusChange: true,
+    },
   );
 }
