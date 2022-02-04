@@ -17,6 +17,7 @@ export function useFetchLatestMessages(channelId: TChannel) {
       variables: { channelId: channelId },
       fetchPolicy: 'network-only',
       notifyOnNetworkStatusChange: true,
+      pollInterval: 5000,
     },
   );
 }

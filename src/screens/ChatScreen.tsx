@@ -63,7 +63,7 @@ const ChatScreen = ({
       <ChatHeader name={channel.name} status={channel.description} />
       <PlatformKeyboardAvoidingView>
         <Screen>
-          {loading || error ? (
+          {(loading || error) && chat.messages.length === 0 ? (
             <EmptyState
               title={error?.message}
               message={'Something went wrong, please try again.'}
