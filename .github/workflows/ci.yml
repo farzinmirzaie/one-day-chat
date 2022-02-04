@@ -1,4 +1,4 @@
-name: Telegram Distribution
+name: Distribution
 
 on:
   push:
@@ -6,9 +6,9 @@ on:
       - main
 
 jobs:
-  telegram-distribution:
+  distribution:
     runs-on: ubuntu-latest
-    name: Telegram Distribution
+    name: Distribution
     steps:
       - run: echo "VERSION=v$(date +'%Y.%m.%d')_${{ github.run_id }}" >> $GITHUB_ENV
 
@@ -55,7 +55,7 @@ jobs:
           message: ${{ env.VERSION }}
           document: android/app/build/outputs/apk/release/app-release.apk
 
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         run: |
           git config --global user.name $user_name
           git config --global user.email $user_email
