@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import styled, { useTheme } from 'styled-components/native';
 import { Avatar, Gradient, IconButton, TextPrimary, TextSecondary } from '.';
-import { useStore } from '../hooks';
+import { useAppStore } from '../hooks';
 
 const Container = styled.SafeAreaView`
   border-color: ${({ theme }) => theme.colors.border};
@@ -19,7 +19,7 @@ const Row = styled.View`
 
 const Header = () => {
   const { colors } = useTheme();
-  const { userId, changeUser } = useStore();
+  const { userId, changeUser } = useAppStore();
 
   // TODO: Implement account selector UI.
   const onUserChange = () =>

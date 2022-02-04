@@ -3,7 +3,7 @@ import { ActivityIndicator } from 'react-native';
 import styled, { useTheme } from 'styled-components/native';
 import { IconButton } from '.';
 import { TChannel } from '../../types';
-import { usePostMessage, useStore } from '../hooks';
+import { useAppStore, useDraftStore, usePostMessage } from '../hooks';
 
 const Container = styled.SafeAreaView`
   background-color: ${({ theme }) => theme.colors.secondary};
@@ -25,13 +25,14 @@ interface Props {
 
 const ChatInput = ({ channelId }: Props) => {
   const { colors } = useTheme();
-  const store = useStore();
-  const [message, setMessage] = useState(store.getDraft(channelId));
+  const { userId } = useAppStore();
+  const draft = useDraftStore();
+  const [message, setMessage] = useState(draft.get(channelId));
   const [send, { loading, error, data }] = usePostMessage();
 
   const onChange = (value: string) => {
     setMessage(value);
-    store.setDraft(channelId, value);
+    draft.set(channelId, value);
   };
 
   const submit = () => {
@@ -39,11 +40,11 @@ const ChatInput = ({ channelId }: Props) => {
       variables: {
         channelId: channelId,
         text: message.trim(),
-        userId: store.userId,
+        userId: userId,
       },
     });
     setMessage('');
-    store.clearDraft(channelId);
+    draft.clear(channelId);
   };
 
   return (

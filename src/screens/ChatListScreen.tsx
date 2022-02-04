@@ -8,11 +8,11 @@ import {
   Screen,
   SearchBar,
 } from '../components';
-import { useStore } from '../hooks';
+import { useAppStore } from '../hooks';
 import { NavigationProps } from './Navigation';
 
 const ChatListScreen = ({ navigation }: NavigationProps<'ChatList'>) => {
-  const { channels } = useStore();
+  const { channels } = useAppStore();
   const [query, setQuery] = useState('');
 
   return (

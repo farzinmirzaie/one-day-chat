@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { useTheme } from 'styled-components/native';
 import { Avatar, Spacer, TextSecondary } from '.';
 import { IMessage } from '../../types';
-import { useStore } from '../hooks';
+import { useAppStore } from '../hooks';
 import Gradient from './Gradient';
 
 interface Props {
@@ -31,9 +31,9 @@ const Column = styled.View<Props>`
 
 const ChatBubble = ({ message }: { message: IMessage }) => {
   const { colors } = useTheme();
-  const store = useStore();
+  const { userId } = useAppStore();
   const date = new Date(message.datetime);
-  const incoming = store.userId === message.userId;
+  const incoming = userId === message.userId;
 
   return (
     <Container incoming={incoming}>
