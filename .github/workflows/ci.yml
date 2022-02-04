@@ -1,15 +1,12 @@
-name: Firebase Distribution
+name: Telegram Distribution
 
 on:
-  push:
-    branches:
-      - main
-      - ci
+  pull_request
 
 jobs:
-  dev-distribution:
+  telegram-distribution:
     runs-on: ubuntu-latest
-    name: Firebase Distribution
+    name: Telegram Distribution
     steps:
     - run: echo "VERSION=v$(date +'%Y.%m.%d')_${{ github.run_id }}" >> $GITHUB_ENV
 
@@ -51,7 +48,7 @@ jobs:
 
     - uses: appleboy/telegram-action@master
       with:
-        to: -594189996
-        token: 1945113507:AAFOq7XkKpJ-CDm20x96MUPF4mPpXgCQMo8
+        to: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+        token: ${{ secrets.TELEGRAM_SENDER_TOKEN }}
         message: ${{ env.VERSION }}
         document: android/app/build/outputs/apk/release/app-release.apk
