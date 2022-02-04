@@ -1,12 +1,13 @@
 import React from 'react';
-import { useColorScheme } from 'react-native';
+import { Platform, useColorScheme, useWindowDimensions } from 'react-native';
 import { ThemeProvider } from 'styled-components/native';
 import ApolloProvider from './src/graphql';
-import { Navigation } from './src/screens';
+import { Navigation, SplitScreen } from './src/screens';
 import { AppStoreProvider, DraftStoreProvider } from './src/stores';
 import { darkTheme, lightTheme } from './src/themes';
 
 const App = () => {
+  const { width } = useWindowDimensions();
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
@@ -14,7 +15,13 @@ const App = () => {
       <DraftStoreProvider>
         <ApolloProvider>
           <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-            <Navigation />
+            {Platform.OS !== 'web' ? (
+              <Navigation />
+            ) : width < 800 ? (
+              <Navigation />
+            ) : (
+              <SplitScreen />
+            )}
           </ThemeProvider>
         </ApolloProvider>
       </DraftStoreProvider>

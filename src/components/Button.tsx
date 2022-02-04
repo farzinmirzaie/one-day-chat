@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import styled, { useTheme } from 'styled-components/native';
+import styled from 'styled-components/native';
 import { TextSecondary } from '.';
 import Gradient from './Gradient';
 
@@ -15,12 +15,10 @@ interface Props {
 }
 
 const Button = ({ caption, onPress }: Props) => {
-  const { colors } = useTheme();
-
   return (
     <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
       <ButtonContainer>
-        <TextSecondary bold color={colors.primary}>
+        <TextSecondary bold color={'white'}>
           {caption}
         </TextSecondary>
       </ButtonContainer>

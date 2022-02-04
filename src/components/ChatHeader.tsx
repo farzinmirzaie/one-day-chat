@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StatusBar, useColorScheme } from 'react-native';
 import styled from 'styled-components/native';
@@ -23,11 +22,11 @@ interface Props {
   avatar?: string;
   name: string;
   status: string;
+  onBack?: () => void;
 }
 
-const ChatHeader = ({ avatar, name, status }: Props) => {
+const ChatHeader = ({ avatar, name, status, onBack }: Props) => {
   const isDarkMode = useColorScheme() === 'dark';
-  const navigation = useNavigation();
 
   return (
     <Container>
@@ -36,8 +35,8 @@ const ChatHeader = ({ avatar, name, status }: Props) => {
         translucent
         backgroundColor="transparent"
       />
-      <IconButton icon={'arrowLeft'} onPress={() => navigation.goBack()} />
-      <Avatar uri={avatar} id={name} noLeftMargin />
+      {onBack && <IconButton icon={'arrowLeft'} onPress={onBack} />}
+      <Avatar uri={avatar} id={name} noLeftMargin={onBack !== undefined} />
       <NameContainer>
         <TextPrimary>{name}</TextPrimary>
         <TextSecondary numberOfLines={1}>{status}</TextSecondary>
