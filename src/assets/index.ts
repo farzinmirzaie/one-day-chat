@@ -5,9 +5,9 @@ import search from './icons/search.png';
 import send from './icons/send.png';
 
 export const ICONS = {
-  dots: dots,
-  search: search,
-  arrowLeft: arrowLeft,
-  arrowDown: arrowDown,
-  send: send,
+  dots,
+  search,
+  arrowLeft,
+  arrowDown,
+  send,
 };

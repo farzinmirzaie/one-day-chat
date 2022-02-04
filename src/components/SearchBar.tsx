@@ -31,6 +31,7 @@ const SearchBar = ({ onChange }: Props) => {
         placeholder="Search for channels"
         placeholderTextColor={colors.textSecondary}
         selectionColor={colors.accentDark}
+        blurOnSubmit={false}
       />
     </Container>
   );

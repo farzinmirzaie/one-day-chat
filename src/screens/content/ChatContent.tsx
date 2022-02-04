@@ -20,7 +20,7 @@ interface Props {
 }
 
 const ChatContent = ({ channel, onBack }: Props) => {
-  const [shouldLoadMore, setShouldLoadMore] = useState(true);
+  const [shouldLoadMore, setShouldLoadMore] = useState(false);
   const { loading, error, data, refetch } = useFetchLatestMessages(channel.id);
   const [fetchMore, more] = useFetchMoreMessages();
 
@@ -32,7 +32,9 @@ const ChatContent = ({ channel, onBack }: Props) => {
 
       if (latestMessages) {
         chat.addAll(latestMessages);
-        setShouldLoadMore(!(latestMessages.length < 10));
+        if (latestMessages.length === 10) {
+          handleLoadMore(latestMessages[latestMessages.length - 1].messageId);
+        }
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
