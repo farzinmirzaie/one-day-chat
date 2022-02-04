@@ -1,7 +1,13 @@
+import arrowDown from './icons/arrow-down.png';
+import arrowLeft from './icons/arrow-left.png';
+import dots from './icons/dots.png';
+import search from './icons/search.png';
+import send from './icons/send.png';
+
 export const ICONS = {
-  dots: require('./icons/dots.png'),
-  search: require('./icons/search.png'),
-  arrowLeft: require('./icons/arrow-left.png'),
-  arrowDown: require('./icons/arrow-down.png'),
-  send: require('./icons/send.png'),
+  dots: dots,
+  search: search,
+  arrowLeft: arrowLeft,
+  arrowDown: arrowDown,
+  send: send,
 };

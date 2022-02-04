@@ -21,7 +21,9 @@ const ChatListScreen = ({ navigation }: NavigationProps<'ChatList'>) => {
       <SearchBar onChange={setQuery} />
       <PlatformKeyboardAvoidingView>
         <FlatList
-          data={channels.filter(channel => channel.name.includes(query))}
+          data={channels.filter(channel =>
+            channel.name.toLowerCase().includes(query.toLowerCase()),
+          )}
           renderItem={({ item }) => (
             <ChatCard
               name={item.name}
