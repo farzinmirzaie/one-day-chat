@@ -12,7 +12,7 @@
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "predeploy": "npm run web-build",
-    "deploy": "gh-pages -d web-build"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@apollo/client": "^3.5.8",
