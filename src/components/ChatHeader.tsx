@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
+import { StatusBar, useColorScheme } from 'react-native';
 import styled from 'styled-components/native';
 import { Avatar, IconButton, TextPrimary, TextSecondary } from '.';
 
@@ -24,10 +25,12 @@ interface Props {
 }
 
 const ChatHeader = ({ avatar, name, status }: Props) => {
+  const isDarkMode = useColorScheme() !== 'dark';
   const navigation = useNavigation();
 
   return (
     <Container>
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <IconButton icon={'arrowLeft'} onPress={() => navigation.goBack()} />
       <Avatar uri={avatar} id={name} noLeftMargin />
       <NameContainer>

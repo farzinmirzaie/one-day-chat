@@ -6,6 +6,7 @@ import {
 import React from 'react';
 import { ChatListScreen, ChatScreen } from '.';
 import { IChannel } from '../../types';
+import { ChatStoreProvider } from '../stores';
 
 type RootStackParamList = {
   ChatList: undefined;
@@ -22,7 +23,13 @@ const Navigation = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="ChatList" component={ChatListScreen} />
-        <Stack.Screen name="Chat" component={ChatScreen} />
+        <Stack.Screen name="Chat">
+          {props => (
+            <ChatStoreProvider>
+              <ChatScreen {...props} />
+            </ChatStoreProvider>
+          )}
+        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );

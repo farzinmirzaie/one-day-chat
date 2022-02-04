@@ -14,4 +14,6 @@ export interface IMessage {
   datetime: string;
   userId: TUser;
   text: string;
+  error?: boolean;
+  pending?: boolean;
 }

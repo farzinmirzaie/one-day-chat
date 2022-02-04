@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { StatusBar, TouchableOpacity, View } from 'react-native';
 import styled, { useTheme } from 'styled-components/native';
 import { Avatar, Gradient, IconButton, TextPrimary, TextSecondary } from '.';
 import { useAppStore } from '../hooks';
@@ -29,6 +29,7 @@ const Header = () => {
 
   return (
     <Gradient>
+      <StatusBar barStyle={'light-content'} />
       <TouchableOpacity activeOpacity={0.7} onPress={onUserChange}>
         <Container>
           <Row>

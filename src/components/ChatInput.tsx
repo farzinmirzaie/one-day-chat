@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import { ActivityIndicator } from 'react-native';
 import styled, { useTheme } from 'styled-components/native';
 import { IconButton } from '.';
 import { TChannel } from '../../types';
-import { useAppStore, useDraftStore, usePostMessage } from '../hooks';
+import {
+  useAppStore,
+  useChatStore,
+  useDraftStore,
+  usePostMessage,
+} from '../hooks';
 
 const Container = styled.SafeAreaView`
   background-color: ${({ theme }) => theme.colors.secondary};
@@ -27,40 +31,56 @@ const ChatInput = ({ channelId }: Props) => {
   const { colors } = useTheme();
   const { userId } = useAppStore();
   const draft = useDraftStore();
-  const [message, setMessage] = useState(draft.get(channelId));
-  const [send, { loading, error, data }] = usePostMessage();
+  const chat = useChatStore();
+  const [input, setInput] = useState(draft.get(channelId));
+  const [sendMessage] = usePostMessage();
 
   const onChange = (value: string) => {
-    setMessage(value);
+    setInput(value);
     draft.set(channelId, value);
   };
 
-  const submit = () => {
-    send({
-      variables: {
-        channelId: channelId,
-        text: message.trim(),
-        userId: userId,
-      },
+  const submit = async () => {
+    const tempId = Date.now().toString();
+
+    chat.add({
+      datetime: new Date().toString(),
+      text: input.trim(),
+      userId: userId,
+      messageId: tempId,
+      pending: true,
     });
-    setMessage('');
+    setInput('');
     draft.clear(channelId);
+    try {
+      const result = await sendMessage({
+        variables: {
+          channelId: channelId,
+          text: input.trim(),
+          userId: userId,
+        },
+      });
+
+      if (result.data?.postMessage) {
+        chat.update(tempId, result.data?.postMessage);
+      } else {
+        chat.update(tempId, undefined, true);
+      }
+    } catch (error2) {
+      chat.update(tempId, undefined, true);
+    }
   };
 
   return (
     <Container>
       <Input
-        value={message}
+        value={input}
         onChangeText={onChange}
         placeholder="Say something..."
         placeholderTextColor={colors.textSecondary}
         onSubmitEditing={submit}
       />
-      {loading ? (
-        <ActivityIndicator />
-      ) : (
-        <IconButton icon="send" onPress={submit} />
-      )}
+      <IconButton icon="send" onPress={submit} />
     </Container>
   );
 };

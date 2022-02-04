@@ -1,4 +1,5 @@
 import React from 'react';
+import { ActivityIndicator } from 'react-native';
 import styled, { useTheme } from 'styled-components/native';
 import { Avatar, Spacer, TextSecondary } from '.';
 import { IMessage } from '../../types';
@@ -29,11 +30,45 @@ const Column = styled.View<Props>`
   align-self: flex-end;
 `;
 
+const CenterContainer = styled.View<Props>`
+  align-self: center;
+  align-items: flex-end;
+`;
+
 const ChatBubble = ({ message }: { message: IMessage }) => {
   const { colors } = useTheme();
   const { userId } = useAppStore();
   const date = new Date(message.datetime);
   const incoming = userId === message.userId;
+
+  const renderPending = () => (
+    <CenterContainer>
+      <Spacer />
+      <ActivityIndicator color={colors.accentDark} />
+    </CenterContainer>
+  );
+
+  const renderError = () => (
+    <CenterContainer>
+      <Spacer />
+      <TextSecondary size={10} color={'tomato'}>
+        Error!
+      </TextSecondary>
+    </CenterContainer>
+  );
+
+  const renderDetails = () => (
+    <Column incoming={incoming}>
+      <Spacer />
+      <TextSecondary size={10}>
+        {incoming ? 'Sent' : message.userId}
+      </TextSecondary>
+      <TextSecondary size={10}>
+        {`${date.getHours()}:${date.getMinutes()}`}
+      </TextSecondary>
+      <Spacer size={2} />
+    </Column>
+  );
 
   return (
     <Container incoming={incoming}>
@@ -49,16 +84,9 @@ const ChatBubble = ({ message }: { message: IMessage }) => {
         </TextSecondary>
       </Bubble>
       <Spacer size={2} />
-      <Column incoming={incoming}>
-        <Spacer />
-        <TextSecondary size={10}>
-          {incoming ? 'Sent' : message.userId}
-        </TextSecondary>
-        <TextSecondary size={10}>
-          {`${date.getHours()}:${date.getMinutes()}`}
-        </TextSecondary>
-        <Spacer size={2} />
-      </Column>
+      {message.pending && renderPending()}
+      {message.error && renderError()}
+      {!message.pending && !message.error && renderDetails()}
     </Container>
   );
 };

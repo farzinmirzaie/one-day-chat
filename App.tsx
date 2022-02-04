@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar, useColorScheme } from 'react-native';
+import { useColorScheme } from 'react-native';
 import { ThemeProvider } from 'styled-components/native';
 import ApolloProvider from './src/graphql';
 import { Navigation } from './src/screens';
@@ -14,7 +14,6 @@ const App = () => {
       <DraftStoreProvider>
         <ApolloProvider>
           <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-            <StatusBar barStyle={'light-content'} />
             <Navigation />
           </ThemeProvider>
         </ApolloProvider>

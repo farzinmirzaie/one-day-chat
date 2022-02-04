@@ -23,10 +23,10 @@ export const ChatStoreProvider = ({
       payload: message,
     });
 
-  const update = (message: IMessage) =>
+  const update = (messageId: string, message?: IMessage, error?: boolean) =>
     dispatch({
       type: 'UPDATE',
-      payload: message,
+      payload: { messageId: messageId, message: message, error: error },
     });
 
   return (

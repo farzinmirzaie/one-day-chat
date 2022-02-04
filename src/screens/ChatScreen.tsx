@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { IMessage } from '../../types';
 import {
   ChatHeader,
   ChatHistory,
@@ -8,7 +7,11 @@ import {
   PlatformKeyboardAvoidingView,
   Screen,
 } from '../components';
-import { useFetchLatestMessages, useFetchMoreMessages } from '../hooks';
+import {
+  useChatStore,
+  useFetchLatestMessages,
+  useFetchMoreMessages,
+} from '../hooks';
 import { NavigationProps } from './Navigation';
 
 const ChatScreen = ({
@@ -16,35 +19,37 @@ const ChatScreen = ({
     params: { channel },
   },
 }: NavigationProps<'Chat'>) => {
-  const [messages, setMessages] = useState<IMessage[]>();
   const [shouldLoadMore, setShouldLoadMore] = useState(true);
   const { loading, error, data, refetch } = useFetchLatestMessages(channel.id);
-  const [fetchMoreMessages, { loading: loadingMore, data: dataMore }] =
-    useFetchMoreMessages();
+  const [fetchMore, more] = useFetchMoreMessages();
+
+  const chat = useChatStore();
 
   useEffect(() => {
     if (data) {
       const { fetchLatestMessages: latestMessages } = data;
 
       if (latestMessages) {
-        setMessages(latestMessages);
+        chat.addAll(latestMessages);
         setShouldLoadMore(!(latestMessages.length < 10));
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   useEffect(() => {
-    if (dataMore) {
-      const { fetchMoreMessages: olderMessages } = dataMore;
+    if (more.data) {
+      const { fetchMoreMessages: olderMessages } = more.data;
       if (olderMessages) {
-        setMessages(old => [...new Set([...old!, ...olderMessages])]);
+        chat.addAll(olderMessages);
         setShouldLoadMore(!(olderMessages.length < 10));
       }
     }
-  }, [dataMore]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [more.data]);
 
   const handleLoadMore = (lastMessageId: string) => {
-    fetchMoreMessages({
+    fetchMore({
       variables: {
         channelId: channel.id,
         messageId: lastMessageId,
@@ -58,19 +63,17 @@ const ChatScreen = ({
       <ChatHeader name={channel.name} status={channel.description} />
       <PlatformKeyboardAvoidingView>
         <Screen>
-          {(loading || error) && (
+          {loading || error ? (
             <EmptyState
               title={error?.message}
               message={'Something went wrong, please try again.'}
               isLoading={loading}
               onRetry={() => refetch()}
             />
-          )}
-
-          {messages && (
+          ) : (
             <ChatHistory
-              messages={messages}
-              isLoadingMore={loadingMore}
+              messages={chat.messages}
+              isLoadingMore={more.loading}
               shouldLoadMore={shouldLoadMore}
               onLoadMore={handleLoadMore}
             />
