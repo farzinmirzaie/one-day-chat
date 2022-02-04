@@ -1,6 +1,6 @@
 import React from 'react';
 import { StatusBar, TouchableOpacity, View } from 'react-native';
-import styled, { useTheme } from 'styled-components/native';
+import styled from 'styled-components/native';
 import { Avatar, Gradient, IconButton, TextPrimary, TextSecondary } from '.';
 import { useAppStore } from '../hooks';
 
@@ -10,6 +10,7 @@ const Container = styled.SafeAreaView`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding-top: ${StatusBar.currentHeight || 0}px;
 `;
 
 const Row = styled.View`
@@ -18,7 +19,6 @@ const Row = styled.View`
 `;
 
 const Header = () => {
-  const { colors } = useTheme();
   const { userId, changeUser } = useAppStore();
 
   // TODO: Implement account selector UI.
@@ -29,13 +29,17 @@ const Header = () => {
 
   return (
     <Gradient>
-      <StatusBar barStyle={'light-content'} />
+      <StatusBar
+        barStyle={'light-content'}
+        translucent
+        backgroundColor="transparent"
+      />
       <TouchableOpacity activeOpacity={0.7} onPress={onUserChange}>
         <Container>
           <Row>
             <Avatar id={userId} />
             <View>
-              <TextPrimary color={colors.primary}>Hello, {userId}!</TextPrimary>
+              <TextPrimary color={'white'}>Hello, {userId}!</TextPrimary>
               <Row>
                 <TextSecondary>Tap to switch between accounts</TextSecondary>
                 <IconButton

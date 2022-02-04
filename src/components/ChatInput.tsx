@@ -41,6 +41,10 @@ const ChatInput = ({ channelId }: Props) => {
   };
 
   const submit = async () => {
+    if (input.trim().length === 0) {
+      return;
+    }
+
     const tempId = Date.now().toString();
 
     chat.add({
@@ -78,6 +82,7 @@ const ChatInput = ({ channelId }: Props) => {
         onChangeText={onChange}
         placeholder="Say something..."
         placeholderTextColor={colors.textSecondary}
+        selectionColor={colors.accentDark}
         onSubmitEditing={submit}
       />
       <IconButton icon="send" onPress={submit} />

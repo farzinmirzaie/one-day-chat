@@ -11,6 +11,7 @@ const Container = styled.SafeAreaView`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding-top: ${StatusBar.currentHeight || 0}px;
 `;
 
 const NameContainer = styled.View`
@@ -25,12 +26,16 @@ interface Props {
 }
 
 const ChatHeader = ({ avatar, name, status }: Props) => {
-  const isDarkMode = useColorScheme() !== 'dark';
+  const isDarkMode = useColorScheme() === 'dark';
   const navigation = useNavigation();
 
   return (
     <Container>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <StatusBar
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        translucent
+        backgroundColor="transparent"
+      />
       <IconButton icon={'arrowLeft'} onPress={() => navigation.goBack()} />
       <Avatar uri={avatar} id={name} noLeftMargin />
       <NameContainer>

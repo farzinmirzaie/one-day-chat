@@ -30,6 +30,7 @@ const SearchBar = ({ onChange }: Props) => {
         onChangeText={onChange}
         placeholder="Search for channels"
         placeholderTextColor={colors.textSecondary}
+        selectionColor={colors.accentDark}
       />
     </Container>
   );

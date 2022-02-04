@@ -52,7 +52,7 @@ const ChatBubble = ({ message }: { message: IMessage }) => {
     <CenterContainer>
       <Spacer />
       <TextSecondary size={10} color={'tomato'}>
-        Error!
+        Failed
       </TextSecondary>
     </CenterContainer>
   );
