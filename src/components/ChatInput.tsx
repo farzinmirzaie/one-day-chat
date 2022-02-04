@@ -41,6 +41,10 @@ const ChatInput = ({ channelId }: Props) => {
   };
 
   const submit = async () => {
+    if (input.trim().length === 0) {
+      return;
+    }
+
     const tempId = Date.now().toString();
 
     chat.add({
