@@ -1,6 +1,6 @@
 import React from 'react';
 import { StatusBar, TouchableOpacity, View } from 'react-native';
-import styled, { useTheme } from 'styled-components/native';
+import styled from 'styled-components/native';
 import { Avatar, Gradient, IconButton, TextPrimary, TextSecondary } from '.';
 import { useAppStore } from '../hooks';
 
@@ -19,7 +19,6 @@ const Row = styled.View`
 `;
 
 const Header = () => {
-  const { colors } = useTheme();
   const { userId, changeUser } = useAppStore();
 
   // TODO: Implement account selector UI.
@@ -40,7 +39,7 @@ const Header = () => {
           <Row>
             <Avatar id={userId} />
             <View>
-              <TextPrimary color={colors.primary}>Hello, {userId}!</TextPrimary>
+              <TextPrimary color={'white'}>Hello, {userId}!</TextPrimary>
               <Row>
                 <TextSecondary>Tap to switch between accounts</TextSecondary>
                 <IconButton
