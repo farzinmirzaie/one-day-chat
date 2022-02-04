@@ -38,33 +38,35 @@ const imageLoaderConfiguration = {
   },
 };
 
-module.exports = {
-  entry: {
-    app: path.join(__dirname, 'index.js'),
-  },
-  output: {
-    path: path.resolve(appDirectory, 'dist'),
-    publicPath: '/',
-    filename: 'rnw.bundle.js',
-  },
-  resolve: {
-    extensions: ['.web.tsx', '.web.ts', '.tsx', '.ts', '.web.js', '.js'],
-    alias: {
-      'react-native$': 'react-native-web',
-      'react-native-linear-gradient': 'react-native-web-linear-gradient',
+module.exports = (env, argv) => {
+  return {
+    entry: {
+      app: path.join(__dirname, 'index.js'),
     },
-  },
-  module: {
-    rules: [babelLoaderConfiguration, imageLoaderConfiguration],
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'web/index.html'),
-    }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.DefinePlugin({
-      // See: https://github.com/necolas/react-native-web/issues/349
-      __DEV__: JSON.stringify(true),
-    }),
-  ],
+    output: {
+      path: path.resolve(appDirectory, 'dist'),
+      publicPath: argv.mode === 'development' ? '/' : './',
+      filename: 'rnw.bundle.js',
+    },
+    resolve: {
+      extensions: ['.web.tsx', '.web.ts', '.tsx', '.ts', '.web.js', '.js'],
+      alias: {
+        'react-native$': 'react-native-web',
+        'react-native-linear-gradient': 'react-native-web-linear-gradient',
+      },
+    },
+    module: {
+      rules: [babelLoaderConfiguration, imageLoaderConfiguration],
+    },
+    plugins: [
+      new HtmlWebpackPlugin({
+        template: path.join(__dirname, 'web/index.html'),
+      }),
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.DefinePlugin({
+        // See: https://github.com/necolas/react-native-web/issues/349
+        __DEV__: JSON.stringify(true),
+      }),
+    ],
+  };
 };
