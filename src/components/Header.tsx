@@ -10,6 +10,7 @@ const Container = styled.SafeAreaView`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding-top: ${StatusBar.currentHeight || 0}px;
 `;
 
 const Row = styled.View`
@@ -29,7 +30,11 @@ const Header = () => {
 
   return (
     <Gradient>
-      <StatusBar barStyle={'light-content'} />
+      <StatusBar
+        barStyle={'light-content'}
+        translucent
+        backgroundColor="transparent"
+      />
       <TouchableOpacity activeOpacity={0.7} onPress={onUserChange}>
         <Container>
           <Row>
