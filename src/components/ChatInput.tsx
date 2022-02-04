@@ -78,6 +78,7 @@ const ChatInput = ({ channelId }: Props) => {
         onChangeText={onChange}
         placeholder="Say something..."
         placeholderTextColor={colors.textSecondary}
+        selectionColor={colors.accentDark}
         onSubmitEditing={submit}
       />
       <IconButton icon="send" onPress={submit} />
