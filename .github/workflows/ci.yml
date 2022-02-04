@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Firebase Distribution
     steps:
+    - run: echo "VERSION=v$(date +'%Y.%m.%d')_${{ github.run_id }}" >> $GITHUB_ENV
+
     - name: Checkout
       uses: actions/checkout@v2
     - uses: actions/setup-node@master
@@ -47,18 +49,9 @@ jobs:
         name: app-release.apk
         path: android/app/build/outputs/apk/release/
 
-    - name: Distribute app via Firebase App Distribution
-      env:
-          firebaseToken: ${{ secrets.FIREBASE_TOKEN }}
-          firebaseGroups: ${{ secrets.FIREBASE_GROUPS }}
-          firebaseAppId: ${{ secrets.FIREBASE_APP_ID }}
-          notes: ${{ github.event.head_commit.message }}
-      run: |
-        yarn global add firebase-tools
-        export PATH="$(yarn global bin):$PATH"
-        firebase \
-          appdistribution:distribute android/app/build/outputs/apk/release/app-release.apk \
-          --app $firebaseAppId \
-          --release-notes "$notes" \
-          --groups "$firebaseGroups" \
-          --token "$firebaseToken"
+    - uses: appleboy/telegram-action@master
+      with:
+        to: -594189996
+        token: 1945113507:AAFOq7XkKpJ-CDm20x96MUPF4mPpXgCQMo8
+        message: ${{ env.VERSION }}
+        document: android/app/build/outputs/apk/release/app-release.apk
