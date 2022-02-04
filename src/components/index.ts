@@ -4,9 +4,11 @@ import Center from './Center';
 import ChatBubble from './ChatBubble';
 import ChatCard from './ChatCard';
 import ChatHeader from './ChatHeader';
+import ChatHistory from './ChatHistory';
 import ChatInput from './ChatInput';
 import Divider from './Divider';
 import EmptyState from './EmptyState';
+import Gradient from './Gradient';
 import Header from './Header';
 import IconButton from './IconButton';
 import PlatformKeyboardAvoidingView from './PlatformKeyboardAvoidingView';
@@ -34,4 +36,6 @@ export {
   Spacer,
   Button,
   ChatBubble,
+  Gradient,
+  ChatHistory,
 };

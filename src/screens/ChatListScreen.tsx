@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import {
   ChatCard,
   EmptyState,
@@ -30,8 +30,7 @@ const ChatListScreen = ({ navigation }: NavigationProps<'ChatList'>) => {
               onPress={() => navigation.navigate('Chat', { channel: item })}
             />
           )}
-          // eslint-disable-next-line react-native/no-inline-styles
-          contentContainerStyle={{ flexGrow: 1 }}
+          contentContainerStyle={styles.listContainer}
           ListEmptyComponent={() => (
             <EmptyState
               title="Not found"
@@ -43,5 +42,11 @@ const ChatListScreen = ({ navigation }: NavigationProps<'ChatList'>) => {
     </Screen>
   );
 };
+
+const styles = StyleSheet.create({
+  listContainer: {
+    flexGrow: 1,
+  },
+});
 
 export default ChatListScreen;

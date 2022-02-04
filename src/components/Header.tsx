@@ -1,11 +1,10 @@
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import styled from 'styled-components/native';
-import { Avatar, IconButton, TextPrimary, TextSecondary } from '.';
+import styled, { useTheme } from 'styled-components/native';
+import { Avatar, Gradient, IconButton, TextPrimary, TextSecondary } from '.';
 import { useStore } from '../hooks';
 
 const Container = styled.SafeAreaView`
-  background-color: ${({ theme }) => theme.colors.primary};
   border-color: ${({ theme }) => theme.colors.border};
   border-bottom-width: 1px;
   flex-direction: row;
@@ -13,32 +12,44 @@ const Container = styled.SafeAreaView`
   align-items: center;
 `;
 
-const UserContainer = styled.View`
+const Row = styled.View`
   flex-direction: row;
   align-items: center;
 `;
 
 const Header = () => {
+  const { colors } = useTheme();
   const { userId, changeUser } = useStore();
 
+  // TODO: Implement account selector UI.
   const onUserChange = () =>
     changeUser(
       userId === 'Joyse' ? 'Russell' : userId === 'Russell' ? 'Sam' : 'Joyse',
     );
 
   return (
-    <TouchableOpacity activeOpacity={0.7} onPress={onUserChange}>
-      <Container>
-        <UserContainer>
-          <Avatar id={userId} />
-          <View>
-            <TextPrimary>Hello, {userId}!</TextPrimary>
-            <TextSecondary>Tap to switch between accounts</TextSecondary>
-          </View>
-        </UserContainer>
-        <IconButton icon={'arrowDown'} onPress={onUserChange} />
-      </Container>
-    </TouchableOpacity>
+    <Gradient>
+      <TouchableOpacity activeOpacity={0.7} onPress={onUserChange}>
+        <Container>
+          <Row>
+            <Avatar id={userId} />
+            <View>
+              <TextPrimary color={colors.primary}>Hello, {userId}!</TextPrimary>
+              <Row>
+                <TextSecondary>Tap to switch between accounts</TextSecondary>
+                <IconButton
+                  icon={'arrowDown'}
+                  onPress={onUserChange}
+                  secondary
+                  margin={5}
+                  size={10}
+                />
+              </Row>
+            </View>
+          </Row>
+        </Container>
+      </TouchableOpacity>
+    </Gradient>
   );
 };
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
+import { useTheme } from 'styled-components/native';
 import { Button, Center, Spacer, TextPrimary, TextSecondary } from '.';
 
 interface Props {
@@ -10,10 +11,12 @@ interface Props {
 }
 
 const EmptyState = ({ title, message, isLoading, onRetry }: Props) => {
+  const { colors } = useTheme();
+
   if (isLoading) {
     return (
       <Center>
-        <ActivityIndicator />
+        <ActivityIndicator color={colors.accentDark} />
       </Center>
     );
   }

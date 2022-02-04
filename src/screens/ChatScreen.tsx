@@ -1,14 +1,14 @@
-import React from 'react';
-import { FlatList } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { IMessage } from '../../types';
 import {
-  ChatBubble,
   ChatHeader,
+  ChatHistory,
   ChatInput,
   EmptyState,
   PlatformKeyboardAvoidingView,
   Screen,
 } from '../components';
-import { useFetchLatestMessages } from '../hooks';
+import { useFetchLatestMessages, useFetchMoreMessages } from '../hooks';
 import { NavigationProps } from './Navigation';
 
 const ChatScreen = ({
@@ -16,14 +16,49 @@ const ChatScreen = ({
     params: { channel },
   },
 }: NavigationProps<'Chat'>) => {
+  const [messages, setMessages] = useState<IMessage[]>();
+  const [shouldLoadMore, setShouldLoadMore] = useState(true);
   const { loading, error, data, refetch } = useFetchLatestMessages(channel.id);
+  const [fetchMoreMessages, { loading: loadingMore, data: dataMore }] =
+    useFetchMoreMessages();
+
+  useEffect(() => {
+    if (data) {
+      const { fetchLatestMessages: latestMessages } = data;
+
+      if (latestMessages) {
+        setMessages(latestMessages);
+        setShouldLoadMore(!(latestMessages.length < 10));
+      }
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (dataMore) {
+      const { fetchMoreMessages: olderMessages } = dataMore;
+      if (olderMessages) {
+        setMessages(old => [...new Set([...old!, ...olderMessages])]);
+        setShouldLoadMore(!(olderMessages.length < 10));
+      }
+    }
+  }, [dataMore]);
+
+  const handleLoadMore = (lastMessageId: string) => {
+    fetchMoreMessages({
+      variables: {
+        channelId: channel.id,
+        messageId: lastMessageId,
+        old: true,
+      },
+    });
+  };
 
   return (
     <Screen>
       <ChatHeader name={channel.name} status={channel.description} />
       <PlatformKeyboardAvoidingView>
         <Screen>
-          {!data?.fetchLatestMessages && (
+          {(loading || error) && (
             <EmptyState
               title={error?.message}
               message={'Something went wrong, please try again.'}
@@ -32,19 +67,12 @@ const ChatScreen = ({
             />
           )}
 
-          {data?.fetchLatestMessages && (
-            <FlatList
-              data={data.fetchLatestMessages}
-              inverted={data?.fetchLatestMessages.length !== 0}
-              renderItem={({ item }) => <ChatBubble message={item} />}
-              // eslint-disable-next-line react-native/no-inline-styles
-              contentContainerStyle={{ flexGrow: 1, paddingTop: 15 }}
-              ListEmptyComponent={() => (
-                <EmptyState
-                  title={'No message here'}
-                  message={'Try to send a message and start a conversation.'}
-                />
-              )}
+          {messages && (
+            <ChatHistory
+              messages={messages}
+              isLoadingMore={loadingMore}
+              shouldLoadMore={shouldLoadMore}
+              onLoadMore={handleLoadMore}
             />
           )}
         </Screen>

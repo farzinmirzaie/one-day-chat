@@ -8,25 +8,21 @@ const Icon = styled.Image<Props>`
     secondary ? theme.colors.textSecondary : theme.colors.textPrimary};
   height: ${({ size }) => (size ? `${size}px` : '20px')};
   width: ${({ size }) => (size ? `${size}px` : '20px')};
-  margin: 15px;
+  margin: ${({ margin }) => (margin ? `${margin}px` : '15px')};
 `;
 
 interface Props {
   icon?: keyof typeof ICONS;
   size?: number;
+  margin?: number;
   secondary?: boolean;
   onPress?: () => void;
 }
 
-const IconButton = ({ icon, size, secondary, onPress }: Props) => {
+const IconButton = ({ icon, onPress, ...props }: Props) => {
   return (
     <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
-      <Icon
-        source={ICONS[icon || 'dots']}
-        resizeMode="contain"
-        secondary={secondary}
-        size={size}
-      />
+      <Icon source={ICONS[icon || 'dots']} resizeMode="contain" {...props} />
     </TouchableOpacity>
   );
 };
