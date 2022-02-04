@@ -13,7 +13,7 @@ const App = () => {
     <StoreProvider>
       <ApolloProvider>
         <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-          <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+          <StatusBar barStyle={'light-content'} />
           <Navigation />
         </ThemeProvider>
       </ApolloProvider>

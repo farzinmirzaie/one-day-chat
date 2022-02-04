@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import { IMessage, TChannel } from '../../types';
 import { FETCH_MORE_MESSAGES } from '../graphql';
 
@@ -12,13 +12,12 @@ interface IFetchMoreMessagesVars {
   old: boolean;
 }
 
-export function useFetchMoreMessages(
-  channelId: TChannel,
-  messageId: string,
-  old: boolean,
-) {
-  return useQuery<IFetchMoreMessagesData, IFetchMoreMessagesVars>(
+export function useFetchMoreMessages() {
+  return useLazyQuery<IFetchMoreMessagesData, IFetchMoreMessagesVars>(
     FETCH_MORE_MESSAGES,
-    { variables: { channelId: channelId, messageId: messageId, old: old } },
+    {
+      fetchPolicy: 'network-only',
+      notifyOnNetworkStatusChange: true,
+    },
   );
 }

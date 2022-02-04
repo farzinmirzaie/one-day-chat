@@ -6,7 +6,9 @@ const Image = styled.Image<Props>`
   height: ${({ size }) => (size ? `${size}px` : '50px')};
   width: ${({ size }) => (size ? `${size}px` : '50px')};
   border-radius: ${({ size }) => (size ? `${size / 2}px` : '50px')};
-  margin: ${({ noLeftMargin }) => `15px 15px 15px ${noLeftMargin ? 0 : 15}px`};
+  margin: 15px;
+  margin-left: ${({ noLeftMargin }) => `${noLeftMargin ? 0 : 15}px`};
+  margin-right: ${({ noRightMargin }) => `${noRightMargin ? 0 : 15}px`};
 `;
 
 interface Props {
@@ -14,6 +16,7 @@ interface Props {
   id?: string;
   size?: number;
   noLeftMargin?: boolean;
+  noRightMargin?: boolean;
 }
 
 const Avatar = ({ uri, id, ...props }: Props) => {

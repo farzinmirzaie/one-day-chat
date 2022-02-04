@@ -13,6 +13,10 @@ interface IFetchLatestMessagesVars {
 export function useFetchLatestMessages(channelId: TChannel) {
   return useQuery<IFetchLatestMessagesData, IFetchLatestMessagesVars>(
     FETCH_LATEST_MESSAGES,
-    { variables: { channelId: channelId } },
+    {
+      variables: { channelId: channelId },
+      fetchPolicy: 'network-only',
+      notifyOnNetworkStatusChange: true,
+    },
   );
 }

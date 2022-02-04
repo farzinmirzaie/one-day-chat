@@ -10,22 +10,26 @@ const Container = styled.View`
 `;
 
 const Input = styled.TextInput`
-  width: 200px;
+  width: 150px;
   padding: 20px 0;
   font-size: 14px;
-  text-align: center;
   color: ${({ theme }) => theme.colors.textSecondary};
 `;
 
-const SearchBar = () => {
-  const theme = useTheme();
+interface Props {
+  onChange: (value: string) => void;
+}
+
+const SearchBar = ({ onChange }: Props) => {
+  const { colors } = useTheme();
 
   return (
     <Container>
       <IconButton secondary icon={'search'} />
       <Input
-        placeholder="Search OR Start New Chat"
-        placeholderTextColor={theme.colors.textSecondary}
+        onChangeText={onChange}
+        placeholder="Search for channels"
+        placeholderTextColor={colors.textSecondary}
       />
     </Container>
   );
