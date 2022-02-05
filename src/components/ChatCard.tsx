@@ -1,4 +1,5 @@
 import React from 'react';
+import Animated, { FadeInRight } from 'react-native-reanimated';
 import styled from 'styled-components/native';
 import { Avatar, TextPrimary, TextSecondary } from '.';
 
@@ -25,6 +26,7 @@ const MessageContainer = styled.View`
 `;
 
 interface Props {
+  index?: number;
   avatar?: string;
   name: string;
   message: string;
@@ -32,22 +34,24 @@ interface Props {
   onPress?: () => void;
 }
 
-const ChatCard = ({ avatar, name, message, time, onPress }: Props) => {
+const ChatCard = ({ index, avatar, name, message, time, onPress }: Props) => {
   return (
-    <Card activeOpacity={0.7} onPress={onPress}>
-      <Avatar uri={avatar} id={name} />
-      <ContentContainer>
-        <MessageContainer>
-          <TextPrimary>{name}</TextPrimary>
-          <TextSecondary numberOfLines={1}>{message}</TextSecondary>
-        </MessageContainer>
-        {time && (
-          <TextSecondary size={10} bold>
-            {`${new Date(time).getHours()}:${new Date(time).getMinutes()}`}
-          </TextSecondary>
-        )}
-      </ContentContainer>
-    </Card>
+    <Animated.View entering={FadeInRight.delay((index || 0) * 100)}>
+      <Card activeOpacity={0.7} onPress={onPress}>
+        <Avatar uri={avatar} id={name} />
+        <ContentContainer>
+          <MessageContainer>
+            <TextPrimary>{name}</TextPrimary>
+            <TextSecondary numberOfLines={1}>{message}</TextSecondary>
+          </MessageContainer>
+          {time && (
+            <TextSecondary size={10} bold>
+              {`${new Date(time).getHours()}:${new Date(time).getMinutes()}`}
+            </TextSecondary>
+          )}
+        </ContentContainer>
+      </Card>
+    </Animated.View>
   );
 };
 

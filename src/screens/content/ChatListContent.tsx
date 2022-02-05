@@ -28,8 +28,9 @@ const ChatListContent = ({ onSelect }: Props) => {
           data={channels.filter(channel =>
             channel.name.toLowerCase().includes(query.toLowerCase()),
           )}
-          renderItem={({ item }) => (
+          renderItem={({ item, index }) => (
             <ChatCard
+              index={index}
               name={item.name}
               message={item.description}
               avatar={item.avatar}
