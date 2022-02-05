@@ -38,27 +38,11 @@ const imageLoaderConfiguration = {
   },
 };
 
-const reanimatedLoaderConfiguration = {
-  test: /\.(js|jsx|ts|tsx)$/,
-  exclude: /node_modules\/(?!react-native-reanimated)/,
-  use: {
-    loader: 'babel-loader',
-    options: {
-      presets: [
-        '@babel/preset-env',
-        '@babel/preset-react',
-        {
-          plugins: ['@babel/plugin-proposal-class-properties'],
-        },
-      ],
-      plugins: ['babel-plugin-react-native-web'],
-    },
-  },
-};
-
 module.exports = (env, argv) => {
   return {
-    entry: [path.join(__dirname, 'index.js'), 'babel-polyfill'],
+    entry: {
+      app: path.join(__dirname, 'index.js'),
+    },
     output: {
       path: path.resolve(appDirectory, 'dist'),
       publicPath: argv.mode === 'development' ? '/' : './',
@@ -72,23 +56,16 @@ module.exports = (env, argv) => {
       },
     },
     module: {
-      rules: [
-        babelLoaderConfiguration,
-        imageLoaderConfiguration,
-        reanimatedLoaderConfiguration,
-      ],
+      rules: [babelLoaderConfiguration, imageLoaderConfiguration],
     },
     plugins: [
       new HtmlWebpackPlugin({
         template: path.join(__dirname, 'web/index.html'),
       }),
-      new webpack.DefinePlugin({ process: { env: {} } }),
       new webpack.HotModuleReplacementPlugin(),
       new webpack.DefinePlugin({
-        __DEV__: JSON.stringify(argv.mode === 'development'),
-      }),
-      new webpack.ProvidePlugin({
-        process: 'process/browser',
+        // See: https://github.com/necolas/react-native-web/issues/349
+        __DEV__: JSON.stringify(true),
       }),
     ],
   };
