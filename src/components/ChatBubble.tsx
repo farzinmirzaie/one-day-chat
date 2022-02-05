@@ -1,5 +1,6 @@
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
+import Animated, { FadeInLeft, FadeInRight } from 'react-native-reanimated';
 import styled, { useTheme } from 'styled-components/native';
 import { Avatar, Spacer, TextSecondary } from '.';
 import { IMessage } from '../../types';
@@ -71,23 +72,25 @@ const ChatBubble = ({ message }: { message: IMessage }) => {
   );
 
   return (
-    <Container incoming={incoming}>
-      {!incoming && (
-        <Avatar id={message.userId} size={30} noLeftMargin noRightMargin />
-      )}
-      <Spacer />
-      <Bubble
-        incoming={incoming}
-        color={incoming ? colors.secondary : undefined}>
-        <TextSecondary color={incoming ? colors.textPrimary : colors.primary}>
-          {message.text}
-        </TextSecondary>
-      </Bubble>
-      <Spacer size={2} />
-      {message.pending && renderPending()}
-      {message.error && renderError()}
-      {!message.pending && !message.error && renderDetails()}
-    </Container>
+    <Animated.View entering={incoming ? FadeInRight : FadeInLeft}>
+      <Container incoming={incoming}>
+        {!incoming && (
+          <Avatar id={message.userId} size={30} noLeftMargin noRightMargin />
+        )}
+        <Spacer />
+        <Bubble
+          incoming={incoming}
+          color={incoming ? colors.secondary : undefined}>
+          <TextSecondary color={incoming ? colors.textPrimary : colors.primary}>
+            {message.text}
+          </TextSecondary>
+        </Bubble>
+        <Spacer size={2} />
+        {message.pending && renderPending()}
+        {message.error && renderError()}
+        {!message.pending && !message.error && renderDetails()}
+      </Container>
+    </Animated.View>
   );
 };
 
